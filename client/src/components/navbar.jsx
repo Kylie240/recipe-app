@@ -8,12 +8,6 @@ export const Navbar = () => {
     const [searchValue, setSearchValue] = useState("");
 
     const username = getUsername();
-
-    const handleSearch = (e) => {
-        e.preventDefault();
-        console.log({searchValue});
-        setSearchValue("")
-    }
  
     return (
         <div className="flex justify-center">

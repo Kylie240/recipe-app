@@ -5,19 +5,23 @@ import bcrypt from 'bcrypt'
 import { UserModel } from './models/Users.js';
 import { RecipeModel } from './models/Recipe.js';
 import jwt from 'jsonwebtoken';
+import 'dotenv/config'
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb+srv://olivkylie:GFOtJ6BKdm7ovIWE@cluster0.wikcpbd.mongodb.net/Cluster0?retryWrites=true&w=majority")
-
+mongoose.connect(process.env.MONGO_URI)
 
 const verifyToken = (req, res, next) => {
     const token = req.headers.authorization;
+    console.log("testing");
+    if (!token) {
+        res.json({message: "No token provided"})
+    }
     if (token) {
-        jwt.verify(token, "secret", (err) => {
-            if (err) return res.ssendStatus(403)
+        jwt.verify(token, process.env.JWT_SECRET, (err) => {
+            if (err) return res.sendStatus(403)
             next()
         })
     } else {
@@ -54,12 +58,24 @@ app.post("/login", async (req, res) => {
         if (!checkPassword) {
             return res.json({message: "Username or password is incorrect"})
         }        
-        const token = jwt.sign({id: user._id}, "secret");
+        const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, { expiresIn: '1d' });
         res.json({token, userID: user._id, username: user.username})    
     } catch (err) {
         res.json(err)
     }
 
+})
+
+app.get("/savedRecipes/:userID", verifyToken, async (req, res) => { 
+    try {
+        const user = await UserModel.findById(req.params.userID)
+        const savedRecipes = await RecipeModel.find({
+            _id: { $in: user.savedRecipes }
+        })
+        res.json({savedRecipes})
+    } catch (err) {
+        res.json(err);
+    }
 })
 
 
@@ -73,7 +89,7 @@ app.get('/', async (req, res) => {
     }
 })
 
-app.put('/', async (req, res) => {
+app.put('/', verifyToken, async (req, res) => {
     try {
         const recipe = await RecipeModel.findById(req.body.recipeID);
         const user = await UserModel.findById(req.body.userID);
@@ -109,18 +125,6 @@ app.get("/savedRecipes/ids/:userID", async (req, res) => {
     try {
         const user = await UserModel.findById(req.params.userID)
         res.json({ savedRecipes: user?.savedRecipes})
-    } catch (err) {
-        res.json(err);
-    }
-})
-
-app.get("/savedRecipes/:userID", async (req, res) => { 
-    try {
-        const user = await UserModel.findById(req.params.userID)
-        const savedRecipes = await RecipeModel.find({
-            _id: { $in: user.savedRecipes }
-        })
-        res.json({savedRecipes})
     } catch (err) {
         res.json(err);
     }

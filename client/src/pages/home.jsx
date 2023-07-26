@@ -41,7 +41,9 @@ export const Home = () => {
             if (!userID) {
                 alert('Must login to start saving recipes')
             }
-            const res = await axios.put("https://smoothie-queen.onrender.com/", {recipeID, userID})
+            const res = await axios.put("https://smoothie-queen.onrender.com/", {recipeID, userID}, {
+                headers: { authorization: "test" }
+            })
             setSavedRecipes(res.data.savedRecipes);
         } catch (err) {
             console.error(err);

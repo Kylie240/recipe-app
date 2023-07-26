@@ -14,7 +14,9 @@ export const Account = () => {
         window.scrollTo(0,0)
         const fetchSavedRecipes = async () => {
             try {
-                const response = await axios.get(`https://smoothie-queen.onrender.com/savedRecipes/${userID}`)
+                const response = await axios.get(`https://smoothie-queen.onrender.com/savedRecipes/${userID}`, {
+                    headers: {authorization: "test"}
+                })
                 setSavedRecipes(response.data.savedRecipes)
             } catch (err) {
                 console.error(err);
