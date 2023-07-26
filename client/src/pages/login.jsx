@@ -53,14 +53,12 @@ const Login = () => {
                 <div>
                     <input 
                         type="email" 
-                        id="email"
                         placeholder="Email Address"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <input
                         type="password" 
-                        id="password"
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -100,21 +98,18 @@ const Register = () => {
                 <div>
                     <input 
                         type="text" 
-                        id="username"
                         placeholder="Username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     <input 
                         type="email" 
-                        id="email"
                         placeholder="Email Address"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <input 
                         type="password" 
-                        id="password"
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
