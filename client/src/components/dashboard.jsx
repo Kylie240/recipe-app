@@ -17,7 +17,7 @@ export const Dashboard = (props) => {
     useEffect(() => {
         const fetchList = async () => {
             try {
-                const response = await axios.get(`https://smoothie-queen.onrender.com/shoppingList/${userID}`)
+                const response = await axios.get(`http://localhost:3000/shoppingList/${userID}`)
                 setShoppingList(response.data)
             } catch (err) {
                 console.error(err);
@@ -35,7 +35,7 @@ export const Dashboard = (props) => {
 
     const handleDelete = async (index) => {
         try {
-            const res = await axios.put("https://smoothie-queen.onrender.com/shoppinglist", {index, userID})
+            const res = await axios.put("http://localhost:3000/shoppinglist", {index, userID})
             setShoppingList(res.data.shoppingList);
         } catch (error) {
             console.log(error);
@@ -44,7 +44,7 @@ export const Dashboard = (props) => {
 
     const handleClearAll = async () => {
         try {
-            const res = await axios.put("https://smoothie-queen.onrender.com/shoppinglist/clear", {userID})
+            const res = await axios.put("http://localhost:3000/shoppinglist/clear", {userID})
             setShoppingList(res.data.shoppingList);
         } catch (error) {
             console.log(error);

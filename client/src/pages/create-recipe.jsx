@@ -50,7 +50,7 @@ export const CreateRecipe = () => {
         recipe.createdBy = username
         recipe.benefits = benefits
         try {
-            await axios.post("https://smoothie-queen.onrender.com/recipes/create-recipe", {recipe, userID})
+            await axios.post("http://localhost:3000/recipes/create-recipe", {recipe, userID})
             alert(`${recipe.name} recipe created successfully!`);
             nav('/')
         } catch (err) {

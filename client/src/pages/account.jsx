@@ -14,7 +14,7 @@ export const Account = () => {
         window.scrollTo(0,0)
         const fetchSavedRecipes = async () => {
             try {
-                const response = await axios.get(`https://smoothie-queen.onrender.com/savedRecipes/${userID}`)
+                const response = await axios.get(`http://localhost:3000/savedRecipes/${userID}`)
                 setSavedRecipes(response.data.savedRecipes)
             } catch (err) {
                 console.error(err);
@@ -25,7 +25,7 @@ export const Account = () => {
 
     const viewRecipe = async (recipeID) => {
         try {
-            const res = await axios.get(`https://smoothie-queen.onrender.com/recipes/${recipeID}`)
+            const res = await axios.get(`http://localhost:3000/recipes/${recipeID}`)
             setSelectedRecipe(res.data);
         } catch (err) {
             console.error(err);
@@ -38,7 +38,7 @@ export const Account = () => {
 
     const addToShoppingList = async (recipeID, index, ingredient) => {
         try {
-            const res = await axios.put("https://smoothie-queen.onrender.com/shoppinglist/add", {recipeID, index, ingredient, userID})
+            const res = await axios.put("http://localhost:3000/shoppinglist/add", {recipeID, index, ingredient, userID})
             if (res.data.message === "item already added") {
                 return alert(res.data.message);
             }
