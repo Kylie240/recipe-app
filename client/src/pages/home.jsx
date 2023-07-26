@@ -3,15 +3,13 @@ import { useEffect, useState } from "react"
 import { Hero } from '../components/hero'
 import { useCookies } from 'react-cookie';
 import { getUserID } from "../hooks/getUserID";
-import { Benefits } from './benefits';
-import { TopBanner } from "../components/top-banner";
 
 export const Home = () => {
      const [recipes, setRecipes] = useState([]);
      const [savedRecipes, setSavedRecipes] = useState([]);
      const [selectedRecipe, setSelectedRecipe] = useState({});
      const [updateList, setUpdateList] = useState(false);
-     const [cookies, _] = useCookies(["access_token"])
+     const [cookies, _] = useCookies(["access_token"]);
      const userID = getUserID();
 
     useEffect(() => {
@@ -42,7 +40,7 @@ export const Home = () => {
                 alert('Must login to start saving recipes')
             }
             const res = await axios.put("https://smoothie-queen.onrender.com/", {recipeID, userID}, {
-                headers: { authorization: "test" }
+                headers: { authorization: cookies.access_token }
             })
             setSavedRecipes(res.data.savedRecipes);
         } catch (err) {

@@ -15,7 +15,6 @@ mongoose.connect(process.env.MONGO_URI)
 
 const verifyToken = (req, res, next) => {
     const token = req.headers.authorization;
-    console.log("testing");
     if (!token) {
         res.json({message: "No token provided"})
     }

@@ -2,11 +2,13 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { getUserID } from "../hooks/getUserID";
 import { Dashboard } from "../components/dashboard";
+import { useCookies } from "react-cookie";
 
 export const Account = () => {
      const [savedRecipes, setSavedRecipes] = useState([]);
      const [selectedRecipe, setSelectedRecipe] = useState({});
      const [updateList, setUpdateList] = useState(true);
+     const [cookies, _] = useCookies(["access_token"]);
 
      const userID = getUserID();
 
@@ -15,7 +17,7 @@ export const Account = () => {
         const fetchSavedRecipes = async () => {
             try {
                 const response = await axios.get(`https://smoothie-queen.onrender.com/savedRecipes/${userID}`, {
-                    headers: {authorization: "test"}
+                    headers: {authorization: cookies.access_token}
                 })
                 setSavedRecipes(response.data.savedRecipes)
             } catch (err) {
