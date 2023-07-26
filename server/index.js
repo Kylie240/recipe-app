@@ -5,7 +5,6 @@ import bcrypt from 'bcrypt'
 import { UserModel } from './models/Users.js';
 import { RecipeModel } from './models/Recipe.js';
 import jwt from 'jsonwebtoken';
-import ObjectId from "mongodb";
 
 const app = express();
 app.use(express.json());
@@ -29,17 +28,22 @@ const verifyToken = (req, res, next) => {
 //user
 app.post("/register", async (req, res) => {  
     const {username, email, password} = req.body;
-    const user = await UserModel.findOne({username})
-    const userEmail = await UserModel.findOne({email})
+    try {
+        const user = await UserModel.findOne({username})
+        const userEmail = await UserModel.findOne({email})
 
-    if (user) {
-        return res.json({message: "User already exists"})
-    } 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new UserModel({username, email, password:hashedPassword})
-    await newUser.save()
+        if (user) {
+            return res.json({message: "User already exists"})
+        } 
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newUser = new UserModel({username, email, password:hashedPassword})
+        await newUser.save()
+        
+        res.json({message: "User registered successfully!"})
+    } catch (error) {
+        res.json(error)
+    }
     
-    res.json({message: "User registered successfully!"})
 })
 
 app.post("/login", async (req, res) => {  
@@ -57,7 +61,7 @@ app.post("/login", async (req, res) => {
     res.json({token, userID: user._id, username: user.username})
     
 } catch (err) {
-    return res.json({message: "Error logging in"})
+    res.json({message: "Error logging in"})
 }
 
 })
@@ -113,6 +117,7 @@ app.get("/savedRecipes/ids/:userID", async (req, res) => {
         res.json(err);
     }
 })
+
 app.get("/savedRecipes/:userID", async (req, res) => { 
     try {
         const user = await UserModel.findById(req.params.userID)
@@ -124,6 +129,7 @@ app.get("/savedRecipes/:userID", async (req, res) => {
         res.json(err);
     }
 })
+
 app.put("/shoppingList", async (req, res) => { 
     try {
         const user = await UserModel.findById(req.body.userID)
@@ -137,6 +143,7 @@ app.put("/shoppingList", async (req, res) => {
         res.json(err);
     }
 })
+
 app.get("/shoppingList/:userID", async (req, res) => { 
     try {
         const user = await UserModel.findById(req.params.userID)
@@ -165,6 +172,7 @@ app.put("/shoppingList/add", async (req, res) => {
         res.json(err)
     }
 })
+
 app.put("/shoppingList/clear", async (req, res) => {
     try {
         const user = await UserModel.findById(req.body.userID)
