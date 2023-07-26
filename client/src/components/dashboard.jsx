@@ -57,7 +57,7 @@ export const Dashboard = (props) => {
     }
 
     return (
-        <div className='flex justify-around items-center gap-4'>
+        <div className='flex-col gap-4'>
             <div className="flex items-center justify-around relative rounded-2xl p-4 border-2 border-grey-100">
                 <Link to={"/create-recipe"} className='pr-2 border-r flex items-center gap-1'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
