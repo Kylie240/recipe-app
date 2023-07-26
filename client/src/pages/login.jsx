@@ -26,7 +26,7 @@ const Login = () => {
     const loginUser = async (e) => {
         e.preventDefault()
         try {
-            const res = await axios.post("http://localhost:3000/login", {email, password});
+            const res = await axios.post("https://smoothie-queen.onrender.com/login", {email, password});
             if (res.data.message === "Error logging in") {
                 return alert(res.data.message)
             }
@@ -79,7 +79,7 @@ const Register = () => {
     const registerUser = async (e) => {
         e.preventDefault()
         try{ 
-            const res = await axios.post("http://localhost:3000/register", {username, email, password});
+            const res = await axios.post("https://smoothie-queen.onrender.com/register", {username, email, password});
             if (res.data.message !== "User already exists") {
                 alert('Registration complete! You can now login.')
             } else {

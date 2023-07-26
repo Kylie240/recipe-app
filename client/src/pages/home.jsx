@@ -18,7 +18,7 @@ export const Home = () => {
         window.scrollTo(0,0)
         const fetchRecipes = async () => {
             try {
-                const response = await axios.get("http://localhost:3000/")
+                const response = await axios.get("https://smoothie-queen.onrender.com/")
                 setRecipes(response.data)
             } catch (err) {
                 console.error(err);
@@ -26,7 +26,7 @@ export const Home = () => {
         }
         const fetchSavedRecipes = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/savedRecipes/ids/${userID}`)
+                const response = await axios.get(`https://smoothie-queen.onrender.com/savedRecipes/ids/${userID}`)
                 setSavedRecipes(response.data.savedRecipes)
             } catch (err) {
                 console.error(err);
@@ -41,7 +41,7 @@ export const Home = () => {
             if (!userID) {
                 alert('Must login to start saving recipes')
             }
-            const res = await axios.put("http://localhost:3000/", {recipeID, userID})
+            const res = await axios.put("https://smoothie-queen.onrender.com/", {recipeID, userID})
             setSavedRecipes(res.data.savedRecipes);
         } catch (err) {
             console.error(err);
@@ -50,7 +50,7 @@ export const Home = () => {
 
     const viewRecipe = async (recipeID) => {
         try {
-            const res = await axios.get(`http://localhost:3000/recipes/${recipeID}`)
+            const res = await axios.get(`https://smoothie-queen.onrender.com/recipes/${recipeID}`)
             setSelectedRecipe(res.data);
         } catch (err) {
             console.error(err);
@@ -59,7 +59,7 @@ export const Home = () => {
     
     const addToShoppingList = async (recipeID, index, ingredient) => {
         try {
-            const res = await axios.put("http://localhost:3000/shoppinglist/add", {recipeID, index, ingredient, userID})
+            const res = await axios.put("https://smoothie-queen.onrender.com/shoppinglist/add", {recipeID, index, ingredient, userID})
             if (res.data.message === "item already added") {
                 return alert(res.data.message);
             }
