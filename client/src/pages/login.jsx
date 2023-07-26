@@ -28,19 +28,18 @@ const Login = () => {
         try {
             const res = await axios.post("http://localhost:3000/login", {email, password});
             if (res.data.message === "Error logging in") {
-                alert(res.data.message)
+                return alert(res.data.message)
             }
             if (res.data.message === "Username or password is incorrect") {
-                alert(res.data.message)
+                return alert(res.data.message)
             }
             if (!res.data.message) {
                 setCookies("access_token", res.data.token)
                 window.localStorage.setItem("userID", res.data.userID)
                 console.log(res.data);
                 window.localStorage.setItem("username", res.data.username)
-                    alert('Login successful!')
-                    nav("/") 
-                    window.scrollTo(0,0)
+                nav("/") 
+                window.scrollTo(0,0)
             }
         } catch (err) {
             console.log(err)

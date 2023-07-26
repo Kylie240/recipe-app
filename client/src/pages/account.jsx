@@ -20,7 +20,6 @@ export const Account = () => {
                 console.error(err);
             }
         }
-
         fetchSavedRecipes();
     }, [updateList]);
 
@@ -41,7 +40,7 @@ export const Account = () => {
         try {
             const res = await axios.put("http://localhost:3000/shoppinglist/add", {recipeID, index, ingredient, userID})
             if (res.data.message === "item already added") {
-                alert(res.data.message);
+                return alert(res.data.message);
             }
             setUpdateList(!updateList);
             console.log(updateList);

@@ -37,15 +37,14 @@ export const Home = () => {
     }, []);
 
     const saveRecipe = async (recipeID) => {
-        if (!userID) {
-            alert('Must login to start saving recipes')
-        } else {
-            try {
-                const res = await axios.put("http://localhost:3000/", {recipeID, userID})
-                setSavedRecipes(res.data.savedRecipes);
-            } catch (err) {
-                console.error(err);
+        try {
+            if (!userID) {
+                alert('Must login to start saving recipes')
             }
+            const res = await axios.put("http://localhost:3000/", {recipeID, userID})
+            setSavedRecipes(res.data.savedRecipes);
+        } catch (err) {
+            console.error(err);
         }
     }
 
@@ -62,10 +61,9 @@ export const Home = () => {
         try {
             const res = await axios.put("http://localhost:3000/shoppinglist/add", {recipeID, index, ingredient, userID})
             if (res.data.message === "item already added") {
-                alert(res.data.message);
+                return alert(res.data.message);
             }
             setUpdateList(!updateList);
-            console.log(updateList);
         } catch (err) {
             console.error(err);
         }
