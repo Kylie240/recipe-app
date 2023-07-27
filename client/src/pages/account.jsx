@@ -97,9 +97,9 @@ export const Account = () => {
             {selectedRecipe._id &&
             <div className="w-screen flex flex-col justify-center items-center">
                 <div className="h-full overflow-scroll shadow-lg fixed w-screen xl:w-3/5 top-0 p-10 md:p-8 z-50 flex flex-col items-center bg-slate-50 rounded-2xl">
-                    <div className="flex flex-col md:flex-row items-start">
+                    <div className="w-full flex flex-col md:flex-row items-start justify-around">
                         <h2 className="mb-4 uppercase text-5xl md:text-6xl lg:text-7xl color-blue-950 font-bold w-3/4">{selectedRecipe.name}</h2>
-                        <div className="flex flex-wrap flex-col h-full md:h-auto p-4 text-lg border-violet-300 border-4 border-dotted">
+                        <div className="flex flex-col h-full md:h-auto p-4 text-lg border-violet-300 border-4 border-dotted">
                         {selectedRecipe.calories ? <p> <strong>calories:</strong> {selectedRecipe.calories}  </p> : ""}
                         {selectedRecipe.servings ? <p> <strong>serves:</strong> {selectedRecipe.servings}  </p> : ""}
                         {selectedRecipe.createdBy ? (<p> <strong>creator:</strong> {selectedRecipe.createdBy} </p>) : ""}
