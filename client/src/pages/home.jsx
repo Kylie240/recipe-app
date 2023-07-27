@@ -52,6 +52,7 @@ export const Home = () => {
         try {
             const res = await axios.get(`https://smoothie-queen.onrender.com/recipes/${recipeID}`)
             setSelectedRecipe(res.data);
+            document.body.style.overflow = "hidden"
         } catch (err) {
             console.error(err);
         }
@@ -71,6 +72,7 @@ export const Home = () => {
 
     function closeModal () {
         setSelectedRecipe({})
+        document.body.style.overflow = ""
     }
 
     const isSaved = (recipeID) => savedRecipes.includes(recipeID)
@@ -78,7 +80,7 @@ export const Home = () => {
     return (
         <div className="flex flex-col justify-center overflow-hidden"> 
             <Hero />
-            <h1 className="text-3xl lg:text-4xl font-bold text-center mt-24 mb-12  text-blue-950"> 
+            <h1 className="text-3xl lg:text-4xl font-extrabold text-center mt-24 mb-12  text-blue-950"> 
             CHECKOUT THESE <span className="visible md:hidden"><br /></span> GREAT RECIPES! 
             </h1>
 
@@ -149,22 +151,21 @@ export const Home = () => {
                         </div>
                         <div className="text-lg mt-4 w-full flex flex-col">
                             <strong>Ingredients:</strong> <br /> 
-                            <div>
-                                {selectedRecipe.ingredients.map((ingredient, index) => (
-                                    <div key={index} className="flex justify-between mb-4 px-4">
-                                        <div className="w-full border-b-4 border-dotted border-violet-30">
-                                            {ingredient}
-                                        </div>
-                                        {cookies.access_token && <button onClick={() => addToShoppingList(selectedRecipe._id, index, ingredient)} 
-                                            className="md:w-44 flex items-center text-lg p-2 hover:bg-violet-200 bg-violet-300 rounded-lg">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                            </svg>
-                                            <p className="hidden md:flex">shopping list</p>
-                                        </button>}
+                            {selectedRecipe.ingredients.map((ingredient, index) => (
+                                <div key={index} className="flex justify-between items-center mb-4 px-4">
+                                    <div className="w-3/4 border-b-4 border-dotted border-violet-30">
+                                        {ingredient}
                                     </div>
-                                ))}
-                            </div>
+                                    {cookies.access_token && 
+                                    <button onClick={() => addToShoppingList(selectedRecipe._id, index, ingredient)} 
+                                        className="md:w-44 flex items-center h-[40px] text-lg p-2 hover:bg-violet-200 bg-violet-300 rounded-lg">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                        </svg>
+                                        <p className="hidden md:flex">shopping list</p>
+                                    </button>}
+                                </div>
+                            ))}
                             {selectedRecipe.benefits.length > 0 &&
                                 <div className="">
                                     <strong className="text-violet-300 font-bold text-2xl">Benefits:</strong> <br />

@@ -53,11 +53,10 @@ export const Dashboard = (props) => {
 
     function handleModal () {
         setShowShoppingList(!showShoppingList)
-        console.log(showShoppingList);
     }
 
     return (
-        <div className='flex-col gap-4'>
+        <div className='flex-col gap-4 w-[293px] md:w-auto'>
             <div className="flex items-center justify-around relative rounded-2xl p-4 border-2 border-grey-100">
                 <Link to={"/create-recipe"} className='pr-2 border-r flex items-center gap-1'>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -91,12 +90,12 @@ export const Dashboard = (props) => {
                 </div>
             </div>
             { showShoppingList &&
-                <div className='flex flex-col items-center justify-around relative rounded-2xl w-auto p-4 border border-grey-100'>
-                    <h6 className='px-4 m-2 text-3xl font-bold uppercase border-b-4 border-dotted border-violet-300'>Shopping List :</h6>
+                <div className='flex flex-col items-center justify-around relative bottom-4 rounded-b-2xl w-auto pt-8 p-4 border-x-2 border-b-2 border-grey-100'>
+                    <h6 className='m-2 pb-2 text-3xl font-bold uppercase border-b-4 border-dotted text-center border-violet-300'>Shopping List :</h6>
                     <ul className='flex flex-col'>
                         { shoppingList.map((item, index) => (
                             <li key={index} className='hover:font-medium flex items-center justify-between my-1'>
-                                <p className='text-lg pr-4'>
+                                <p className='text-lg text-center pr-4'>
                                     - {item} 
                                 </p>
                                 <button onClick={() => handleDelete(index)}>

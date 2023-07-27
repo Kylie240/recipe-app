@@ -30,6 +30,7 @@ export const Account = () => {
     const viewRecipe = async (recipeID) => {
         try {
             const res = await axios.get(`https://smoothie-queen.onrender.com/recipes/${recipeID}`)
+            document.body.style.overflow = "hidden"
             setSelectedRecipe(res.data);
         } catch (err) {
             console.error(err);
@@ -38,6 +39,7 @@ export const Account = () => {
 
     function closeModal () {
         setSelectedRecipe({})
+        document.body.style.overflow = ""
     }
 
     const addToShoppingList = async (recipeID, index, ingredient) => {
@@ -97,7 +99,7 @@ export const Account = () => {
                 <div className="h-full overflow-scroll shadow-lg fixed w-screen xl:w-3/5 top-0 p-10 md:p-8 z-50 flex flex-col items-center bg-slate-50 rounded-2xl">
                     <div className="flex flex-col md:flex-row items-start">
                         <h2 className="mb-4 uppercase text-5xl md:text-6xl lg:text-7xl color-blue-950 font-bold w-3/4">{selectedRecipe.name}</h2>
-                        <div className="flex flex-col h-full md:h-auto p-4 text-lg border-violet-300 border-4 border-dotted">
+                        <div className="flex flex-wrap flex-col h-full md:h-auto p-4 text-lg border-violet-300 border-4 border-dotted">
                         {selectedRecipe.calories ? <p> <strong>calories:</strong> {selectedRecipe.calories}  </p> : ""}
                         {selectedRecipe.servings ? <p> <strong>serves:</strong> {selectedRecipe.servings}  </p> : ""}
                         {selectedRecipe.createdBy ? (<p> <strong>creator:</strong> {selectedRecipe.createdBy} </p>) : ""}
@@ -109,12 +111,12 @@ export const Account = () => {
                         <div className="text-lg mt-4 w-full flex flex-col">
                             <strong>Ingredients:</strong> <br /> 
                                 {selectedRecipe.ingredients.map((ingredient, index) => (
-                                    <div key={index} className="flex justify-between mb-4">
+                                    <div key={index} className="flex justify-between items-center mb-4">
                                         <div className="w-3/4 border-b-4 border-dotted border-violet-30">
                                             {ingredient}
                                         </div>
                                         <button onClick={(e) => addToShoppingList(selectedRecipe._id, index, ingredient)} 
-                                            className="flex items-center text-lg p-2 hover:bg-violet-200 bg-violet-300 rounded-lg">
+                                            className="flex items-center h-[40px] text-lg p-2 hover:bg-violet-200 bg-violet-300 rounded-lg">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                             </svg>
@@ -122,7 +124,6 @@ export const Account = () => {
                                         </button>
                                     </div>
                                 ))}
-                        </div>
                         {selectedRecipe.benefits.length > 0 &&
                                 <div className="">
                                     <strong className="text-violet-300 font-bold text-2xl">Benefits:</strong> <br />
@@ -133,6 +134,7 @@ export const Account = () => {
                                     ))}
                                 </div>
                             }
+                        </div>
                         <button type="button" onClick={closeModal} className="border border-gray-900 mt-6 hover:bg-blue-950 hover:text-white rounded-md w-full md:w-2/3 lg:w-full text-lg py-2"> Close </button>
                     </div>
                 <div className="fixed w-screen top-0 h-full opacity-80 z-40 bg-blue-100"></div>
