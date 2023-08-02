@@ -37,7 +37,7 @@ export const Home = () => {
     const saveRecipe = async (recipeID) => {
         try {
             if (!userID) {
-                alert('Must login to start saving recipes')
+                return alert('Must login to start saving recipes')
             }
             const res = await axios.put("https://smoothie-queen.onrender.com/", {recipeID, userID}, {
                 headers: { authorization: cookies.access_token }
