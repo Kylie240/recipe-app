@@ -137,7 +137,7 @@ export const Home = () => {
             </div>
             {selectedRecipe._id &&
             <div className="w-screen flex justify-center items-center">
-                <div className="h-full overflow-scroll shadow-lg fixed w-full xl:w-3/5 top-0 p-8 md:p-6 z-50 flex flex-col items-center bg-slate-50 rounded-2xl">
+                <div className="h-full overflow-x-hidden overflow-y-scroll shadow-lg fixed w-full xl:w-3/5 top-0 p-8 md:p-6 z-50 flex flex-col items-center bg-slate-50 rounded-2xl">
                     <div className="w-full flex flex-col md:flex-row items-start justify-around">
                         <h2 className="mb-4 uppercase text-5xl md:text-6xl lg:text-7xl color-blue-950 font-bold w-3/4">{selectedRecipe.name}</h2>
                         <div className="flex flex-col h-full md:h-auto p-4 text-lg border-violet-300 border-4 border-dotted">
