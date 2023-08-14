@@ -23,6 +23,6 @@ MongoDB
 
 <h4>Project preview</h4>
 <p>Home page:</p>
-<img width="500" src="https://kylieoliver.com//oliver-smoothie-queen.netlify.app_ (2).png"/>
+<img width="500" src="https://kylieoliver.com/smoothie-queen.png"/>
   
 </div>
